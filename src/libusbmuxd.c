@@ -1045,7 +1045,12 @@ USBMUXD_API int usbmuxd_get_device_by_udid(const char *udid, usbmuxd_device_info
 			device->product_id = dev_list[i].product_id;
 			strcpy(device->udid, dev_list[i].udid);
 			result = 1;
-			break;
+
+			// if we have wifi, hold off and look for usb
+			// by simply not returning here and keep searching
+			if(device->product_id != 0) {
+			  break;
+			}
 		}
 	}
 
